@@ -25,9 +25,24 @@ namespace RegistrarApp
             Assert.Equal(allCourses, Course.GetAll());
         }
 
+        [Fact]
+        public void TEST_AddStudent_AddStudentToJoinTable()
+        {
+            Course tempCourse = new Course("Math", "30");
+            tempCourse.Save();
+
+            Student tempStudent = new Student("Melvin", "2010-12,30");
+            tempStudent.Save();
+
+            List<Student> allStudents = new List<Student>{tempStudent};
+            tempCourse.AddStudent(tempStudent);
+            Assert.Equal(allStudents, tempCourse.GetStudents());
+        }
+
         public void Dispose()
         {
             Course.DeleteAll();
+            Student.DeleteAll();
         }
     }
 }
